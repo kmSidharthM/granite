@@ -13,8 +13,9 @@ class TasksController < ApplicationController
     render_notice(t("successfully_created"))
   end
 
-  def show
-    render_json({ task: @task })
+  def index
+    tasks = Task.all.as_json(include: { assigned_user: { only: %i[name id] } })
+    render_json({ tasks: })
   end
 
   def update
