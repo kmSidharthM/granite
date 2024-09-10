@@ -4,11 +4,12 @@ class User < ApplicationRecord
   MAX_NAME_LENGTH = 225
   MAX_EMAIL_LENGTH = 35
   MIN_PASSWORD_LENGTH = 6
-  VALID_EMAIL_REGEX = /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i.freez
+  VALID_EMAIL_REGEX = /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i.freeze
 
   has_many :assigned_tasks, foreign_key: :assigned_user_id, class_name: "Task"
 
   has_secure_password
+  has_secure_token :authentication_token
 
   validates :name, presence: true, length: { maximum: MAX_NAME_LENGTH }
   validates :password, length: { minimum: MIN_PASSWORD_LENGTH }, if: -> { password.present? }
