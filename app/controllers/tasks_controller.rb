@@ -18,6 +18,10 @@ class TasksController < ApplicationController
     render_json({ tasks: })
   end
 
+  def show
+    render
+  end
+
   def update
     @task.update!(task_params)
     render_notice(t("successfully_updated"))
@@ -35,6 +39,6 @@ class TasksController < ApplicationController
     end
 
     def task_params
-      params.require(:task).permit(:title)
+      params.require(:task).permit(:title, :assigned_user_id)
     end
 end
