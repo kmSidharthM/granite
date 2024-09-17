@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
 
   rescue_from StandardError, with: :handle_api_exception
 
+  include Pundit::Authorization
+
+  rescue_from Pundit::NotAuthorizedError, with: :handle_authorization_error
+
   def handle_api_exception(exception)
     case exception
     when -> (e) { e.message.include?("PG::") || e.message.include?("SQLite3::") }
@@ -89,5 +93,9 @@ class ApplicationController < ActionController::Base
 
     def current_user
       @current_user
+    end
+
+    def handle_authorization_error
+      render_error(t("authorization.denied"), :forbidden)
     end
 end
