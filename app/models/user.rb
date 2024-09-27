@@ -2,7 +2,7 @@
 
 class User < ApplicationRecord
   MAX_NAME_LENGTH = 225
-  MAX_EMAIL_LENGTH = 35
+  MAX_EMAIL_LENGTH = 100
   MIN_PASSWORD_LENGTH = 6
   VALID_EMAIL_REGEX = /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i.freeze
 
